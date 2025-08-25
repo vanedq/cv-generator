@@ -13,6 +13,7 @@ export const CVPreview = React.forwardRef<HTMLDivElement, { cv: CVData }>(({ cv 
       fullName={cv.personalInfo.fullName}
       title={cv.personalInfo.title}
       email={cv.personalInfo.email}
+      phone={cv.personalInfo.phone}
       location={cv.personalInfo.location}
       github={cv.personalInfo.github}
       linkedin={cv.personalInfo.linkedin}

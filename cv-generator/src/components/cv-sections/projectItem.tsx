@@ -11,7 +11,7 @@ export const ProjectItem: React.FC<ProjectItemProps> = ({ title, technologies, d
       <p className="font-bold">{title}</p>
       <p>{technologies}</p>
       <p>{description}</p>
-      {link && <a href={link} className="text-xs underline">{link}</a>}
+      {link && <a href={link} className="text-xs underline text-black">{link}</a>}
     </article>
   );
 };

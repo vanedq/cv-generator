@@ -11,6 +11,11 @@
   .button-triz {
     @apply bg-emerald-900 hover:bg-emerald-950 text-emerald-400 hover:text-emerald-300;
   }
+
+  /* Força cor preta para todos os links dentro do CV */
+  .cv-container a {
+    @apply text-black;
+  }
 }
 
 /* :root {

@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { CVGenerator } from './App.tsx'
 import './index.css'
+import { CVGenerator } from './screens/App.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

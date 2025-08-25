@@ -42,6 +42,16 @@ export default function PersonalInfoForm({ currentCV, updateCV, isVisible }: any
         className="w-full p-2 border rounded"
       />
       <input
+        type="tel"
+        placeholder="Telefone (opcional)"
+        value={currentCV.personalInfo.phone || ''}
+        onChange={(e) => updateCV({
+          ...currentCV,
+          personalInfo: { ...currentCV.personalInfo, phone: e.target.value }
+        })}
+        className="w-full p-2 border rounded"
+      />
+      <input
         type="text"
         placeholder="Localização"
         value={currentCV.personalInfo.location}

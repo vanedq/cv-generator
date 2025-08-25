@@ -1,22 +1,25 @@
 import { useEffect, useRef, useState } from 'react';
-import BlockText from './components/blockTriz';
-import AddButton, { DeleteButton, SecondaryButton } from './components/buttonTriz';
-import { CVPreview } from './components/cvPreview';
-import AwardsForm from './components/forms/awardsForm';
-import CertificatesForm from './components/forms/certificatesForm';
-import EducationForm from './components/forms/educationForm';
-import ExperienceForm from './components/forms/experienceForm';
-import PersonalInfoForm from './components/forms/personalInfoForm';
-import ProjectsForm from './components/forms/projectsForm';
-import SkillsForm from './components/forms/skillsForm';
-import SummaryForm from './components/forms/summaryForm';
-import type { CVData } from './types/types';
+import BlockText from '../components/blockTriz';
+import AddButton, { DeleteButton, SecondaryButton } from '../components/buttonTriz';
+import { CVPreview } from '../components/cvPreview';
+import AwardsForm from '../components/forms/awardsForm';
+import CertificatesForm from '../components/forms/certificatesForm';
+import EducationForm from '../components/forms/educationForm';
+import ExperienceForm from '../components/forms/experienceForm';
+import PersonalInfoForm from '../components/forms/personalInfoForm';
+import ProjectsForm from '../components/forms/projectsForm';
+import SkillsForm from '../components/forms/skillsForm';
+import SummaryForm from '../components/forms/summaryForm';
+import Signature from '../components/signature';
+import type { CVData } from '../types/types';
+import Home from './home';
 
 export function CVGenerator() {
   const [cvList, setCvList] = useState<CVData[]>([]);
   const [currentCV, setCurrentCV] = useState<CVData | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [activeTab, setActiveTab] = useState('personal');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
 
   // carregar CVs salvos na inicialização
@@ -37,6 +40,18 @@ export function CVGenerator() {
       localStorage.setItem('cvGenerator_cvList', JSON.stringify(cvList));
     }
   }, [cvList]);
+
+  // fechar menu mobile ao clicar fora
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isMobileMenuOpen && !(event.target as Element).closest('.mobile-menu-container')) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isMobileMenuOpen]);
 
   // template inicial para novo cv
   const createNewCV = (): CVData => ({
@@ -204,36 +219,26 @@ export function CVGenerator() {
   // se nunca fez cv mostra tela inicial
   if (!currentCV) {
     return (
-      <div className="min-h-screen bg-emerald-800 flex items-center justify-center">
-        <div className="text-center">
-          <BlockText className='mt-24' prefix={'Gerador de'} blocktext={'CV'} suffix={'ATS friendly'} />
-          <button
-            onClick={handleNewCV}
-            className="bg-emerald-900 hover:bg-emerald-950 text-emerald-400 hover:text-emerald-300 px-6 py-3 rounded-lg flex items-center gap-2 mx-auto mt-8 shadow-border"
-          >
-            + Criar Primeiro CV
-          </button>
-        </div>
-        <p className='absolute bottom-10 text-white'>made with luv by triz</p>
-      </div>
+      <Home action={handleNewCV} />
     );
   }
 
   return (
     <div className="min-h-screen bg-emerald-800">
       {/* header com lista de CVs */}
-      <div className="bg-emerald-700 shadow-sm border-b px-6 py-4">
+      <div className="bg-emerald-700 shadow-sm border-b px-4 lg:px-6 py-4 relative mobile-menu-container">
         <div className="flex items-center justify-between max-w-7xl mx-auto text-white">
           <BlockText prefix={'Gerador de'} blocktext={'CV'} />
 
-          <div className="flex items-center gap-4">
+          {/* desktop menu */}
+          <div className="hidden md:flex items-center gap-2 lg:gap-4">
             <select
               value={currentCV.id}
               onChange={(e) => {
                 const selectedCV = cvList.find(cv => cv.id === e.target.value);
                 if (selectedCV) setCurrentCV(selectedCV);
               }}
-              className="button-triz rounded px-3 py-2 text-sm shadow-border-sm"
+              className="button-triz rounded px-2 lg:px-3 py-2 text-xs lg:text-sm shadow-border-sm"
             >
               {cvList.map(cv => (
                 <option key={cv.id} value={cv.id}>{cv.name}</option>
@@ -245,30 +250,96 @@ export function CVGenerator() {
             <SecondaryButton action={() => handleDuplicateCV(currentCV)} />
 
             <DeleteButton action={() => handleDeleteCV(currentCV.id)} disabled={cvList.length <= 1} />
-
           </div>
+
+          {/* mobile hamburger menu */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden flex flex-col justify-center items-center w-8 h-8 cursor-pointer"
+          >
+            <div className={`w-6 h-0.5 bg-emerald-400 transition-all duration-300 ease-in-out ${isMobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''
+              }`}></div>
+            <div className={`w-6 h-0.5 bg-emerald-400 transition-all duration-300 ease-in-out my-1 ${isMobileMenuOpen ? 'opacity-0' : ''
+              }`}></div>
+            <div className={`w-6 h-0.5 bg-emerald-400 transition-all duration-300 ease-in-out ${isMobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''
+              }`}></div>
+          </button>
         </div>
+
+        {/* mobile dropdown menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden absolute top-full left-0 w-full bg-emerald-700 border-t border-emerald-600 shadow-lg z-50">
+            <div className="px-4 py-3 space-y-3">
+              <select
+                value={currentCV.id}
+                onChange={(e) => {
+                  const selectedCV = cvList.find(cv => cv.id === e.target.value);
+                  if (selectedCV) setCurrentCV(selectedCV);
+                  setIsMobileMenuOpen(false);
+                }}
+                className="button-triz rounded px-3 py-2 text-sm shadow-border-sm w-full"
+              >
+                {cvList.map(cv => (
+                  <option key={cv.id} value={cv.id}>{cv.name}</option>
+                ))}
+              </select>
+
+              <div className="flex flex-col gap-2">
+                <button
+                  onClick={() => {
+                    handleNewCV();
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="bg-emerald-900 hover:bg-emerald-950 text-emerald-400 hover:text-emerald-300 px-4 py-2 rounded shadow-border-sm text-sm w-full text-left"
+                >
+                  + Novo CV
+                </button>
+
+                <button
+                  onClick={() => {
+                    handleDuplicateCV(currentCV);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="bg-emerald-900 hover:bg-emerald-950 text-emerald-400 hover:text-emerald-300 px-4 py-2 rounded shadow-border-sm text-sm w-full text-left"
+                >
+                  Duplicar
+                </button>
+
+                <button
+                  onClick={() => {
+                    handleDeleteCV(currentCV.id);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  disabled={cvList.length <= 1}
+                  className="bg-red-900 hover:bg-red-950 text-red-400 hover:text-red-300 disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2 rounded shadow-border-sm text-sm w-full text-left"
+                >
+                  Excluir
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
-      <div className="max-w-7xl mx-auto p-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="max-w-7xl mx-auto p-4 lg:p-6">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 lg:gap-6">
           {/* painel de edição */}
-          <div className="bg-white rounded-lg shadow-sm border p-6">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-semibold">
+          <div className="bg-white rounded-lg shadow-sm border p-4 lg:p-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-3">
+              <h2 className="text-base lg:text-lg font-semibold">
                 {isEditing ? 'Editando CV' : 'Visualizando CV'}
               </h2>
-              <div className="flex gap-2">
+              <div className="flex gap-2 w-full sm:w-auto">
                 <button
                   onClick={() => setIsEditing(!isEditing)}
-                  className={`px-3 py-2 rounded flex items-center gap-2 ${isEditing ? 'bg-emerald-900 text-white hover:bg-emerald-950' : 'bg-gray-600 text-white hover:bg-gray-700'
+                  className={`px-3 py-2 rounded flex items-center gap-2 text-sm flex-1 sm:flex-none justify-center ${isEditing ? 'bg-emerald-900 text-white hover:bg-emerald-950' : 'bg-gray-600 text-white hover:bg-gray-700'
                     }`}
                 >
                   {isEditing ? 'Salvar' : 'Editar'}
                 </button>
                 <button
                   onClick={handlePrintCV}
-                  className="button-triz text-white px-3 py-2 rounded flex items-center gap-2"
+                  className="button-triz text-white px-3 py-2 rounded flex items-center gap-2 text-sm flex-1 sm:flex-none justify-center"
                 >
                   PDF
                 </button>
@@ -278,7 +349,7 @@ export function CVGenerator() {
             {isEditing && (
               <>
                 {/* tabs de Navegação */}
-                <div className="flex flex-wrap gap-2 mb-6 border-b">
+                <div className="flex flex-wrap gap-1 lg:gap-2 mb-6 border-b overflow-x-auto">
                   {[
                     { id: 'personal', label: 'Pessoal' },
                     { id: 'summary', label: 'Resumo' },
@@ -292,7 +363,7 @@ export function CVGenerator() {
                     <button
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
-                      className={`px-3 py-2 text-sm rounded-t-lg ${activeTab === tab.id
+                      className={`px-2 lg:px-3 py-2 text-xs lg:text-sm rounded-t-lg whitespace-nowrap ${activeTab === tab.id
                         ? 'button-triz border-b-4'
                         : 'text-gray-600 hover:text-gray-800'
                         }`}
@@ -318,16 +389,16 @@ export function CVGenerator() {
           </div>
 
           {/* preview do CV */}
-          <div className="bg-white rounded-lg shadow-sm border p-6">
-            <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
+          <div className="bg-white rounded-lg shadow-sm border p-4 lg:p-6">
+            <h2 className="text-base lg:text-lg font-semibold mb-4 flex items-center gap-2">
               Preview do CV
             </h2>
-            <div className="border rounded-lg p-4 bg-gray-50" style={{ minHeight: '600px' }}>
+            <div className="border rounded-lg p-2 lg:p-4 bg-gray-50 overflow-auto" style={{ minHeight: '600px' }}>
               <CVPreview cv={currentCV} ref={printRef} />
             </div>
           </div>
         </div>
-        <p className='text-center mt-12 text-white'>made with luv by triz</p>
+        <Signature className='' />
       </div>
     </div>
   );
