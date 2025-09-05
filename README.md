@@ -1,12 +1,11 @@
 # 📄 CV Generator
 
-Criador de currículos profissionais com múltiplos templates e personalização completa. Crie, edite e exporte seu CV em PDF de forma simples e intuitiva (e esse readme.md definitivamente não foi gerado por IA :S)
+Criador de currículos profissionais com múltiplos templates e personalização completa. Crie, edite e exporte seu CV em PDF de forma simples e intuitiva 
+(e esse readme.md definitivamente não foi gerado por IA)
 
 ## ⚡ Preview
 
-[Em breve - Deploy aqui]
-
-<!-- ![Preview do CV Generator](preview.png) -->
+<img width="1258" height="807" alt="Captura de Tela 2025-09-04 às 21 37 00" src="https://github.com/user-attachments/assets/8b1e608d-55fe-45fc-bdb0-a40bf6d0c9ee" />
 
 ## ✨ Funcionalidades
 
