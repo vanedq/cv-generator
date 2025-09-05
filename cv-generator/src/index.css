@@ -12,9 +12,76 @@
     @apply bg-emerald-900 hover:bg-emerald-950 text-emerald-400 hover:text-emerald-300;
   }
 
-  /* Força cor preta para todos os links dentro do CV */
+  /* Links dependem do template do CV */
   .cv-container a {
+    text-decoration: none;
+  }
+
+  /* Links pretos para templates padrão */
+  .cv-container:not(.creative-header) a {
     @apply text-black;
+  }
+
+  /* Links brancos quando está em header criativo */
+  .cv-container .creative-header a {
+    @apply text-white;
+  }
+
+  /* Template cores */
+  .creative-emerald {
+    background: linear-gradient(to bottom right, #fff, #ecfdf5);
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .creative-blue {
+    background: linear-gradient(to bottom right, #fff, #eff6ff);
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .creative-purple {
+    background: linear-gradient(to bottom right, #fff, #faf5ff);
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .creative-rose {
+    background: linear-gradient(to bottom right, #fff, #fff1f2);
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .creative-orange {
+    background: linear-gradient(to bottom right, #fff, #fff7ed);
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .creative-teal {
+    background: linear-gradient(to bottom right, #fff, #f0fdfa);
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .creative-section-title-emerald {
+    border-color: #34d399 !important;
+    color: #047857 !important;
+  }
+  .creative-section-title-blue {
+    border-color: #60a5fa !important;
+    color: #1d4ed8 !important;
+  }
+  .creative-section-title-purple {
+    border-color: #a78bfa !important;
+    color: #6d28d9 !important;
+  }
+  .creative-section-title-rose {
+    border-color: #fb7185 !important;
+    color: #be123c !important;
+  }
+  .creative-section-title-orange {
+    border-color: #fb923c !important;
+    color: #c2410c !important;
+  }
+  .creative-section-title-teal {
+    border-color: #2dd4bf !important;
+    color: #0f766e !important;
   }
 }
 

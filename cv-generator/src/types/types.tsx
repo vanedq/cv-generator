@@ -49,4 +49,6 @@ export interface CVData {
   certificates: string[];
   projects: Project[];
   awards: Award[];
+  template?: 'modern' | 'minimal' | 'creative';
+  creativeColor?: 'emerald' | 'blue' | 'purple' | 'rose' | 'orange' | 'teal';
 }
