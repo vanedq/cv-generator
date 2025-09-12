@@ -1,52 +1,51 @@
-# 📄 CV Generator
+# CV Generator
 
-Criador de currículos profissionais com múltiplos templates e personalização completa. Crie, edite e exporte seu CV em PDF de forma simples e intuitiva 
-(e esse readme.md definitivamente não foi gerado por IA)
+Aplicação web para criar e editar currículos com múltiplos templates e exportação em PDF. ATS-Friendly.
 
-## ⚡ Preview
+## 💻 Preview
 
-<img width="1258" height="807" alt="Captura de Tela 2025-09-04 às 21 37 00" src="https://github.com/user-attachments/assets/8b1e608d-55fe-45fc-bdb0-a40bf6d0c9ee" />
+<img width="1258" height="807" alt="Captura de Tela 2025-09-04 às 21 37 00" src="https://github.com/user-attachments/assets/8b1e608d-55fe-45fc-bdb0-a40bf6d0c9ee" />
 
 ## ✨ Funcionalidades
 
-✅ **Multiple CVs**: Crie e gerencie múltiplos currículos  
-✅ **3 Templates**: Modern, Minimal e Creative com cores personalizáveis  
-✅ **Editor Completo**: Interface intuitiva com abas organizadas  
-✅ **Export PDF**: Gere PDFs profissionais com um clique  
-✅ **Responsive**: Funciona perfeitamente em mobile e desktop  
-✅ **Local Storage**: Seus dados são salvos automaticamente  
-✅ **Formulários Dinâmicos**: Adicione/remova experiências, educação, projetos e mais
+- **Local Storage**: Crie quantos currículos quiser e alterne entre eles facilmente, tudo salvo no browser
+- **Templates**: Três estilos diferentes (Modern, Minimal e Creative) com várias opções de cores  
+- **Edição**: Interface organizada em abas para não se perder
+- **Export**: Gere PDFs profissionais direto do navegador
+- **Responsivo**: Funciona bem tanto no computador quanto no celular  
+- **Automático**: Tudo é salvo sozinho enquanto você edita
+- **Flexível**: Adicione ou remova seções conforme sua necessidade
 
-### Seções Disponíveis:
+### Seções que você pode preencher:
 
-- 📝 Informações pessoais (nome, email, telefone, links)
-- 🎯 Resumo profissional
-- 💼 Experiências profissionais
-- 🎓 Educação e formação
-- ⚡ Habilidades técnicas e comportamentais
-- 🌍 Idiomas
-- 🏆 Projetos
+- 📝 Dados pessoais e contatos
+- 🎯 Resumo profissional 
+- 💼 Experiências de trabalho
+- 🎓 Formação acadêmica
+- ⚡ Habilidades técnicas e soft skills
+- 🌍 Idiomas que você fala
+- 🏆 Projetos pessoais ou profissionais
 - 🥇 Prêmios e reconhecimentos
-- 📜 Certificados
+- 📜 Certificados e cursos
 
-## 🛠️ Stack Utilizada
+## 🛠️ Tecnologias usadas
+
+O projeto foi construído com as ferramentas:
 
 **Frontend:**
-
 - React 19
 - TypeScript
 - TailwindCSS 4
 - Vite
-- Lucide React (ícones)
+- Lucide React (pros ícones)
 
-**Build & Dev:**
+**Desenvolvimento:**
+- ESLint pra manter o código limpo
+- Hot Module Replacement pra agilizar o desenvolvimento
 
-- ESLint
-- Hot Module Replacement (HMR)
+## ⚙️ Rodando o projeto
 
-## ⚙️ Como rodar localmente
-
-Clone o repositório:
+Rodando localmente:
 
 ```bash
 git clone [url-do-repositorio]
@@ -59,42 +58,46 @@ Instale as dependências:
 npm install
 # ou
 pnpm install
+# ou
+yarn install
 ```
 
-Rode o projeto:
+Inicie o servidor de desenvolvimento:
 
 ```bash
 npm run dev
 # ou
 pnpm dev
+# ou
+yarn run dev
 ```
 
-Acesse http://localhost:5173 no navegador.
+Depois é só abrir http://localhost:5173 no navegador.
 
-## 🧪 Como usar
+## 🧪 Guia rápido de uso
 
-1. **Primeira vez**: Clique em "Criar Novo CV" na tela inicial
-2. **Informações**: Preencha os dados na aba "Pessoal"
-3. **Conteúdo**: Use as abas para adicionar experiências, educação, etc
-4. **Template**: Escolha o visual na aba "Template"
-5. **Preview**: Visualize em tempo real no painel direito
-6. **Export**: Clique em "PDF" para baixar
+**Começando do zero:**
+1. Clique em "Criar Novo CV" na primeira tela
+2. Preencha suas informações na aba "Pessoal"
+3. Vá preenchendo as outras abas conforme sua experiência
+4. Escolha um template e cor na aba "Template"
+5. Veja o resultado em tempo real no lado direito
+6. Quando estiver satisfeito, clique em "PDF" para baixar
 
-### Gerenciando múltiplos CVs:
+**Gerenciando vários CVs:**
+- Use o menu dropdown no topo para trocar entre seus currículos
+- "Duplicar" cria uma cópia do CV atual (útil para adaptar para vagas específicas)
+- "Excluir" remove um CV (sempre vai sobrar pelo menos um)
 
-- Use o dropdown no header para alternar entre CVs
-- "Duplicar" para criar cópias
-- "Excluir" para remover (mínimo 1 CV)
-
-## 📁 Estrutura do projeto
+## 📁 Como o código está organizado
 
 ```
 cv-generator/
 ├── src/
 │   ├── components/
-│   │   ├── cv-sections/        # Componentes das seções do CV
-│   │   │   ├── header.tsx      # Cabeçalho com info pessoal
-│   │   │   ├── section.tsx     # Seção genérica
+│   │   ├── cv-sections/        # Como cada seção do CV aparece
+│   │   │   ├── header.tsx      # Cabeçalho com nome e contatos
+│   │   │   ├── section.tsx     # Template base para seções
 │   │   │   ├── experienceItem.tsx
 │   │   │   ├── educationItem.tsx
 │   │   │   └── projectItem.tsx
@@ -102,16 +105,16 @@ cv-generator/
 │   │   │   ├── personalInfoForm.tsx
 │   │   │   ├── experienceForm.tsx
 │   │   │   ├── templateForm.tsx
-│   │   │   └── ...
-│   │   ├── appHeader.tsx       # Header da aplicação
-│   │   ├── editPanel.tsx       # Painel de edição
-│   │   ├── previewPanel.tsx    # Painel de preview
-│   │   └── cvPreview.tsx       # Renderização do CV
+│   │   │   └── [outras seções]
+│   │   ├── appHeader.tsx       # Barra superior da aplicação
+│   │   ├── editPanel.tsx       # Painel esquerdo (edição)
+│   │   ├── previewPanel.tsx    # Painel direito (preview)
+│   │   └── cvPreview.tsx       # Como o CV é renderizado
 │   ├── screens/
 │   │   ├── App.tsx             # Componente principal
-│   │   └── home.tsx            # Tela inicial
+│   │   └── home.tsx            # Tela de boas-vindas
 │   ├── types/
-│   │   └── types.tsx           # Definições TypeScript
+│   │   └── types.tsx           # Tipos TypeScript
 │   ├── utils/
 │   │   └── colors.ts           # Sistema de cores
 │   └── index.css               # Estilos globais
@@ -120,78 +123,39 @@ cv-generator/
 └── vite.config.ts
 ```
 
-## 🎨 Templates Disponíveis
+## 🎨 Templates disponíveis
 
-### Moderno
+**Moderno**: Visual contemporâneo com cores destacadas e layout atual. Bom para a maioria das áreas.
 
-Design contemporâneo com cores vibrantes e elementos destacados.
+**Minimalista**: Foco total no conteúdo, sem distrações visuais. Ideal para áreas mais conservadoras.
 
-### Minimalista
+**Criativo**: Cabeçalho colorido e elementos visuais únicos. Perfeito para design, marketing e áreas criativas.
 
-Estilo limpo e minimalista, focado no conteúdo.
+Todos os templates vêm em 6 cores: Verde, Azul, Roxo, Rosa, Laranja e Teal.
 
-### Criativo
+## 💡 Detalhes técnicos interessantes
 
-Template colorido com cabeçalho destacado - ideal para áreas criativas.
+**Arquitetura**: Cada componente tem uma responsabilidade específica, facilitando manutenção e testes.
 
-**Cores disponíveis**: Verde, Azul, Roxo, Rosa, Laranja, Teal
+**Local host (persistência)**: Seus dados ficam salvos no navegador automaticamente. Mesmo fechando a aba, tudo volta quando você abrir novamente.
 
-## 💡 Funcionalidades Técnicas
+**Export PDF**: Usa a função nativa de impressão do navegador, mas com CSS otimizado para gerar PDFs com qualidade profissional.
 
-### Componentização
+**Responsividade**: Foi pensado primeiro para mobile, então funciona bem em qualquer tela.
 
-- Arquitetura modular com componentes reutilizáveis
-- Separação clara entre lógica de negócio e apresentação
-- Props tipadas com TypeScript
-
-### Persistência
-
-- LocalStorage para salvar dados automaticamente
-- Sistema de múltiplos CVs com IDs únicos
-- Recuperação automática na inicialização
-
-### Export PDF
-
-- Geração de PDF via window.print()
-- CSS otimizado para impressão
-- Preservação de cores e layout
-
-### Responsividade
-
-- Design mobile-first
-- Menu hambúrguer para mobile
-- Layout adaptativo com CSS Grid
-
-## 🚀 Build e Deploy
+## 🚀 Build para produção
 
 ```bash
-# Build para produção
+# Gerar build otimizada
 npm run build
 
-# Preview da build
+# Testar a build localmente
 npm run preview
 
-# Lint do código
+# Verificar qualidade do código
 npm run lint
 ```
 
-## 🧠 Processo de desenvolvimento
-
-O projeto foi desenvolvido seguindo estas etapas:
-
-1. **Análise de requisitos**: Definição das funcionalidades essenciais de um gerador de CV
-2. **Arquitetura**: Estrutura modular com separação clara de responsabilidades
-3. **Componentização**: Criação de componentes reutilizáveis e tipados
-4. **Sistema de templates**: Implementação de múltiplos layouts com personalização
-5. **Persistência**: Sistema robusto de salvamento local
-6. **UX/UI**: Interface intuitiva com feedback visual
-7. **Export**: Funcionalidade de geração de PDF profissional
-8. **Otimização**: Limpeza de código e performance
-
-## 🤝 Contribuição
-
-Este é um projeto pessoal, mas sugestões e melhorias são bem-vindas!
-
 ---
 
-**Feito com <3 por [triz](https://github.com/synthriz)**
+**Desenvolvido por [triz](https://github.com/synthriz)**
